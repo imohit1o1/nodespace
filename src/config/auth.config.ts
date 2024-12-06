@@ -48,18 +48,18 @@ export default {
                         throw new Error("Incorrect Password");
                     }
                     console.log("Pass 3 Checked");
-                    // const user = {
-                    //     id: existingUser.id,
-                    //     name: existingUser.name,
-                    //     email: existingUser.email,
-                    //     image: existingUser.image,
-                    //     role: existingUser.role,
-                    // };
+                    const user = {
+                        id: existingUser.id,
+                        name: existingUser.name,
+                        email: existingUser.email,
+                        image: existingUser.image,
+                        role: existingUser.role,
+                    };
 
 
                     // Return the user object
-                    console.log(existingUser);
-                    return existingUser;
+                    console.log(user);
+                    return user;
                 } catch (error) {
                     console.log("aLL Failed");
                     console.log(error);

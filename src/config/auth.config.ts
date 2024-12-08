@@ -9,17 +9,12 @@ export default {
     providers: [
         Credentials({
             name: "Credentials",
-            // credentials: {
-            //     email: { label: "Email", type: "email", placeholder: "abc@example.com" },
-            //     password: { label: "Password", type: "password" },
-            // },
             async authorize(credentials) {
                 try {
                     console.log(
                         "Authorize function called with credentials:",
                         credentials
                     );
-                    // Check if user credentials are Correct
                     // Validate credentials using zod
                     const parsedCredentials = signinSchema.parse(credentials);
 
@@ -51,6 +46,7 @@ export default {
                     const user = {
                         id: existingUser.id,
                         name: existingUser.name,
+                        username: existingUser.username,
                         email: existingUser.email,
                         image: existingUser.image,
                         role: existingUser.role,

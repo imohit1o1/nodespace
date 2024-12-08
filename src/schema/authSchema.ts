@@ -18,7 +18,7 @@ export const signinSchema = z.object({
 
 // Schema for signup validation
 export const signupSchema = z.object({
-    usernname: usernameValidation,
+    username: usernameValidation,
     email: z
         .string()
         .trim()

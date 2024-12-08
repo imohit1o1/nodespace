@@ -17,8 +17,6 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import axios, { AxiosError } from "axios";
 import { signinSchema } from "@/schema/authSchema";
 import { Loader2 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
@@ -98,7 +96,7 @@ export default function SignInForm() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="password" {...field} />
+                    <Input placeholder="password" type="password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -112,7 +110,7 @@ export default function SignInForm() {
 
         <div className="text-center text-sm mt-4">
           <p>
-            Don't have an accouunt?{" "}
+            Don&apos;t have an accouunt?{" "}
             <Link
               href="/sign-up"
               className="text-primary hover:text-primary/90"

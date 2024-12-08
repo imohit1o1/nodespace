@@ -224,7 +224,7 @@ export default function SignUpForm() {
           <p>
             By signing up to create an account I accept
             <br />
-            Company's{" "}
+            Company&apos;s{" "}
             <span className="text-primary hover:text-primary/90">
               Terms of Use and Privacy Policy
             </span>

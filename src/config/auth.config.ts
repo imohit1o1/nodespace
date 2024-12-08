@@ -4,12 +4,13 @@ import type { NextAuthConfig } from "next-auth";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { verifyPassword } from "@/lib/bcrypt-password";
+import { User } from "next-auth";
 
 export default {
     providers: [
         Credentials({
             name: "Credentials",
-            async authorize(credentials) {
+            async authorize(credentials): Promise<User | null> {
                 try {
                     console.log(
                         "Authorize function called with credentials:",
@@ -43,7 +44,7 @@ export default {
                         throw new Error("Incorrect Password");
                     }
                     console.log("Pass 3 Checked");
-                    const user = {
+                    const user: User = {
                         id: existingUser.id,
                         name: existingUser.name,
                         username: existingUser.username,

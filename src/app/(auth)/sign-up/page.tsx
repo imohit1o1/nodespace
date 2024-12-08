@@ -24,6 +24,7 @@ import { signupSchema } from "@/schema/authSchema";
 import { Separator } from "@/components/ui/separator";
 import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
+import { ApiResponse } from "@/types/ApiResponse";
 
 export default function SignUpForm() {
   const [username, setUsername] = useState("");
@@ -57,7 +58,7 @@ export default function SignUpForm() {
           );
           setUsernameMessage(res.data.message);
         } catch (error) {
-          const axiosError = error as AxiosError;
+          const axiosError = error as AxiosError<ApiResponse>;
           setUsernameMessage(
             axiosError.response?.data?.message ?? "Error checking username"
           );
@@ -97,7 +98,7 @@ export default function SignUpForm() {
 
       router.replace("/dashboard/user");
     } catch (error) {
-      const axiosError = error as AxiosError;
+      const axiosError = error as AxiosError<ApiResponse>;
       toast({
         title:
           axiosError.response?.data?.message || "Email Adress already exists!!",

@@ -216,7 +216,11 @@ export default function SignUpForm() {
           </span>
         </Separator>
         <div className="mt-4">
-          <Button variant="outline" type="submit" className="w-full py-6">
+          <Button
+            variant="outline"
+            className="w-full py-6"
+            onClick={() => signIn("google")}
+          >
             <Loader2 className="mr-2 w-4 h-4" />
             Sign up with Google
           </Button>

@@ -10,7 +10,7 @@ export default {
     providers: [
         Credentials({
             name: "Credentials",
-            async authorize(credentials): Promise<User | null> {
+            async authorize(credentials) {
                 try {
                     console.log(
                         "Authorize function called with credentials:",
@@ -24,8 +24,9 @@ export default {
                     console.log("Pass 1 checked ");
                     //Check if user exists
                     const existingUser = await prisma.user.findUnique({
-                        where: { username },
-                    });
+                        where: { username }
+                    })
+                    console.log("Exisitng user : ", existingUser);
 
                     if (!existingUser) {
                         console.log("No user found");
@@ -64,7 +65,10 @@ export default {
                 }
             },
         }),
-        Google
+        Google({
+            clientId: process.env.AUTH_GOOGLE_ID,
+            clientSecret: process.env.AUTH_GOOGLE_SECRET,
+        })
     ],
     callbacks: {
         async jwt({ token, user }) {

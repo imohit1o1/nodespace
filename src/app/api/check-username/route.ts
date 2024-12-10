@@ -42,7 +42,7 @@ export async function GET(req: Request) {
             return NextResponse.json(
                 {
                     success: false,
-                    message: "Username already exists",
+                    message: "Username is taken",
                 },
                 { status: 400 }
             );

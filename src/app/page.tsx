@@ -20,7 +20,7 @@ export default function Home() {
 
   // Get the first letter of the user's name or username
   const userInitial =
-    user?.name?.[0].toUpperCase() || user?.username?.[0].toUpperCase() || "N";
+    user?.name?.[0].toUpperCase() || user?.username?.[0].toUpperCase();
 
   return (
     <div className="flex justify-between items-center max-w-7xl mx-auto p-4">
@@ -33,10 +33,7 @@ export default function Home() {
               <div className="flex items-center gap-2 cursor-pointer">
                 <Avatar>
                   {user.image ? (
-                    <AvatarImage
-                      src={user.image}
-                      alt={user.name || user.username}
-                    />
+                    <AvatarImage src={user.image} alt="@nodespace" />
                   ) : (
                     <AvatarFallback className="rounded-lg">
                       {userInitial}
@@ -55,10 +52,7 @@ export default function Home() {
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                   <Avatar>
                     {user.image ? (
-                      <AvatarImage
-                        src={user.image}
-                        alt={user.name || user.username}
-                      />
+                      <AvatarImage src={user.image} alt="@nodespace" />
                     ) : (
                       <AvatarFallback className="rounded-lg">
                         {userInitial}

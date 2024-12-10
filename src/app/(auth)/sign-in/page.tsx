@@ -36,7 +36,7 @@ export default function SignInForm() {
   });
 
   const onSubmit = async (data: z.infer<typeof signinSchema>) => {
-    console.log("Data for submission" + data.username);
+    console.log("Data for submission" + data);
 
     const response = await signIn("credentials", {
       username: data.username,
@@ -49,14 +49,12 @@ export default function SignInForm() {
       console.error("Sign-in error", response.error);
       toast({
         title: "Invalid credentials",
-        // description: "Friday, February 10, 2023 at 5:57 PM",
       });
     } else {
       // successful sign-in
       console.log("User signed in successfully");
       toast({
         title: "Signed in Successfully",
-        // description: "Friday, February 10, 2023 at 5:57 PM",
       });
       router.replace("/dashboard/user");
     }
@@ -125,7 +123,11 @@ export default function SignInForm() {
           </span>
         </Separator>
         <div className="mt-4">
-          <Button variant="outline" type="submit" className="w-full py-6">
+          <Button
+            variant="outline"
+            className="w-full py-6"
+            onClick={() => signIn("google")}
+          >
             <Loader2 className="mr-2 w-4 h-4" />
             Sign in with Google
           </Button>

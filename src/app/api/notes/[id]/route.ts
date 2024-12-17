@@ -4,7 +4,8 @@ import { noteSchema } from "@/schema/noteSchema";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
-    const { id: noteId } = await params;
+    const { id } = params;
+    const noteId = id;
 
     const user = await currentUser();
     const userId = user.id;

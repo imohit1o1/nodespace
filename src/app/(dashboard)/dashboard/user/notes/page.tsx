@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
@@ -30,7 +30,9 @@ export default function NotesHomePage() {
   return (
     <main className="flex flex-col gap-4 rounded-xl relative p-2">
       <section className="flex justify-between items-center">
-        <NoteTabs currentTab={currentTab} handleTabChange={handleTabChange} />
+        <Suspense>
+          <NoteTabs currentTab={currentTab} handleTabChange={handleTabChange} />
+        </Suspense>
       </section>
 
       <NotesList currentTab={currentTab} />

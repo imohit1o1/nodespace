@@ -1,7 +1,7 @@
-import { getSession } from "next-auth/react";
+import { auth } from "@/config/auth";
 
 export const currentUser = async () => {
-    const session = await getSession();
+    const session = await auth();
     if (!session || !session.user) {
         throw new Error("You do not have permission to access");
     }

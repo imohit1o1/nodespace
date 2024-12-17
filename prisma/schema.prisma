@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -66,9 +66,40 @@ model User {
   accounts Account[]
   sessions Session[]
 
-  status    Status   @default(active)
-  isVerfied Boolean  @default(false)
-  token     String?
+  status      Status        @default(active)
+  isVerfied   Boolean       @default(false)
+  token       String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  notes       Notes[]
+  notesFolder NotesFolder[]
+}
+
+model Notes {
+  id              String       @id @default(uuid())
+  title           String
+  content         String
+  isPinned        Boolean?     @default(false)
+  isFavorite      Boolean?     @default(false)
+  backgroundColor String?
+  textColor       String?
+  userId          String
+  user            User         @relation(fields: [userId], references: [id])
+  notesFolderId   String?
+  notesFolder     NotesFolder? @relation(fields: [notesFolderId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model NotesFolder {
+  id    String  @id @default(uuid())
+  name  String
+  notes Notes[]
+
+  User   User   @relation(fields: [userId], references: [id])
+  userId String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

@@ -1,5 +1,5 @@
 "use client";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { ThemeModeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
@@ -13,10 +13,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { LogOut } from "lucide-react";
-import { useCurrentUser } from "@/hooks/use-current-user";
 
 export default function Home() {
-  const user = useCurrentUser();
+  const session = useSession();
+
+  const user = session.data?.user;
 
   // Get the first letter of the user's name or username
   const userInitial =
@@ -27,7 +28,8 @@ export default function Home() {
       <h1 className="text-xl">NodeSpace</h1>
       <div className="flex gap-4 items-center">
         <ThemeModeToggle />
-        {user ? (
+
+        {user && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <div className="flex items-center gap-2 cursor-pointer">
@@ -80,7 +82,8 @@ export default function Home() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        ) : (
+        )}
+        {!user && session.status !== "loading" && (
           <Link href="/sign-in">
             <Button className="">Sign In</Button>
           </Link>

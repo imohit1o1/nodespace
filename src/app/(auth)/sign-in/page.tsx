@@ -46,7 +46,7 @@ export default function SignInForm() {
 
     if (response?.error) {
       // handle error (invalid credentials)
-      console.error("Sign-in error", response.error);
+      console.log("Sign-in error", response.error);
       toast({
         title: "Invalid credentials",
       });

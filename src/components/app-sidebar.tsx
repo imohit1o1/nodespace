@@ -5,7 +5,6 @@ import {
   DraftingCompass,
   NotebookPen,
   Save,
-  Command,
   Send,
   ListTodo,
   Plus,

@@ -3,9 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { noteSchema } from "@/schema/noteSchema";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
-    const { id } = params;
-    const noteId = id;
+export async function PUT(req: NextRequest, params: { param: { id: string } }) {
+    const { id: noteId } = params.param;
 
     const user = await currentUser();
     const userId = user.id;

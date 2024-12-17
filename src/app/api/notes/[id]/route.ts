@@ -3,11 +3,17 @@ import { prisma } from "@/lib/prisma";
 import { noteSchema } from "@/schema/noteSchema";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PUT(req: NextRequest, params: { param: { id: string } }) {
-    const { id: noteId } = params.param;
-
+// PUT - Update Note
+export async function PUT(req: NextRequest) {
     const user = await currentUser();
     const userId = user.id;
+    const { searchParams } = new URL(req.url);
+    const noteId = searchParams.get('id');
+
+    // Check if noteId is null
+    if (!noteId) {
+        return NextResponse.json({ error: "Note ID is required." }, { status: 400 });
+    }
 
     try {
         console.log("Note ID: ", noteId);
@@ -37,15 +43,16 @@ export async function PUT(req: NextRequest, params: { param: { id: string } }) {
 
         const { title, content, isPinned, isFavorite, backgroundColor, textColor } = parsedData.data;
 
+        // Update the note
         const updatedNote = await prisma.notes.update({
-            where: { id: noteId },
+            where: { id: noteId }, // Prisma expects a string here
             data: {
                 title,
                 content,
                 isPinned,
                 isFavorite,
                 backgroundColor,
-                textColor
+                textColor,
             },
         });
 
@@ -57,16 +64,23 @@ export async function PUT(req: NextRequest, params: { param: { id: string } }) {
     }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+// DELETE - Delete Note
+export async function DELETE(req: NextRequest) {
     const user = await currentUser();
     const userId = user.id;
+    const { searchParams } = new URL(req.url);
+    const noteId = searchParams.get('id');
+
+    // Check if noteId is null
+    if (!noteId) {
+        return NextResponse.json({ error: "Note ID is required." }, { status: 400 });
+    }
+    console.log("Note ID: ", noteId);
 
     try {
-        const noteId = params.id;
-        console.log("Note ID: ", noteId);
 
         const existingNote = await prisma.notes.findUnique({
-            where: { id: noteId },
+            where: { id: noteId }, // Prisma expects a string here
         });
 
         if (!existingNote) {
@@ -77,8 +91,9 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
             return NextResponse.json({ error: "Forbidden: You cannot delete this note." }, { status: 403 });
         }
 
+        // Delete the note
         await prisma.notes.delete({
-            where: { id: noteId },
+            where: { id: noteId }, // Prisma expects a string here
         });
 
         return NextResponse.json({ message: "Note deleted successfully." }, { status: 200 });
